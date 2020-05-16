@@ -1,4 +1,4 @@
-package uet.soa.ws;
+package uet.soa.ws.repository;
 
 import javax.annotation.PostConstruct;
 import java.util.HashMap;

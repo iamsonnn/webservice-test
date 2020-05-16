@@ -74,6 +74,7 @@
                 <configuration>
                     <sources>
                         <source>${project.basedir}/src/main/resources/xsd/countries.xsd</source>
+                        <source>${project.basedir}/src/main/resources/xsd/city.xsd</source>
                     </sources>
                     <packageName>uet.soa.xsd</packageName>
                     <addGeneratedAnnotation>true</addGeneratedAnnotation>

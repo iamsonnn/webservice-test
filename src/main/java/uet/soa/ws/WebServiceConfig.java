@@ -24,17 +24,31 @@ public class WebServiceConfig extends WsConfigurerAdapter {
 	}
 
 	@Bean(name = "countries")
-	public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema countriesSchema) {
+	public DefaultWsdl11Definition countriesWsdl() {
 		DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
 		wsdl11Definition.setPortTypeName("CountriesPort");
-		wsdl11Definition.setLocationUri("/ws");
-		wsdl11Definition.setTargetNamespace("http://spring.io/guides/gs-producing-web-service");
-		wsdl11Definition.setSchema(countriesSchema);
+		wsdl11Definition.setLocationUri("/ws/");
+		wsdl11Definition.setSchema(countriesSchema());
 		return wsdl11Definition;
 	}
 
 	@Bean
 	public XsdSchema countriesSchema() {
 		return new SimpleXsdSchema(new ClassPathResource("xsd/countries.xsd"));
+	}
+
+
+	@Bean(name = "cities")
+	public DefaultWsdl11Definition citiesWsdl() {
+		DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
+		wsdl11Definition.setPortTypeName("CitiesPort");
+		wsdl11Definition.setLocationUri("/ws/");
+		wsdl11Definition.setSchema(citiesSchema());
+		return wsdl11Definition;
+	}
+
+	@Bean
+	public XsdSchema citiesSchema() {
+		return new SimpleXsdSchema(new ClassPathResource("xsd/cities.xsd"));
 	}
 }

@@ -28,29 +28,45 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.util.ClassUtils;
 import org.springframework.ws.client.core.WebServiceTemplate;
+import uet.soa.xsd.GetCityRequest;
+import uet.soa.xsd.GetCityResponse;
 import uet.soa.xsd.GetCountryRequest;
 import uet.soa.xsd.GetCountryResponse;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class ProducingWebServiceApplicationIntegrationTests {
 
-	private Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
+
 
 	@LocalServerPort
 	private int port = 8080;
 
 	@BeforeEach
 	public void init() throws Exception {
-		marshaller.setPackagesToScan(ClassUtils.getPackageName(GetCountryRequest.class));
-		marshaller.afterPropertiesSet();
+
+
 	}
 
 	@Test
-	public void testSendAndReceive() {
+	public void testCountry() throws Exception {
+		Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
+		marshaller.setPackagesToScan(ClassUtils.getPackageName(GetCountryRequest.class));
+		marshaller.afterPropertiesSet();
 		WebServiceTemplate ws = new WebServiceTemplate(marshaller);
 		GetCountryRequest request = new GetCountryRequest();
 		request.setName("Spain");
 		GetCountryResponse response = (GetCountryResponse) ws.marshalSendAndReceive("http://localhost:"+ port + "/ws", request);
 		System.out.println(response.getCountry().getName());
     }
+
+	@Test
+	public void testCity() throws Exception {
+		Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
+		marshaller.setPackagesToScan(ClassUtils.getPackageName(GetCityRequest.class));
+		marshaller.afterPropertiesSet();
+		WebServiceTemplate ws = new WebServiceTemplate(marshaller);
+		GetCityRequest request = new GetCityRequest();
+		GetCityResponse response = (GetCityResponse) ws.marshalSendAndReceive("http://localhost:"+ port + "/ws", request);
+		System.out.println(response.getCity().getName());
+	}
 }
