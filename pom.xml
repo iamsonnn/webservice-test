@@ -74,14 +74,35 @@
                 <configuration>
                     <sources>
                         <source>${project.basedir}/src/main/resources/xsd/countries.xsd</source>
-                        <source>${project.basedir}/src/main/resources/xsd/city.xsd</source>
+                        <source>${project.basedir}/src/main/resources/xsd/cities.xsd</source>
                     </sources>
                     <packageName>uet.soa.xsd</packageName>
                     <addGeneratedAnnotation>true</addGeneratedAnnotation>
                 </configuration>
             </plugin>
+
             <!-- end::xsd[] -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>add-source</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>${project.build.directory}/target/generated-sources/jaxb/</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
+
     </build>
 
 </project>
